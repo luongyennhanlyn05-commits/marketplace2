@@ -441,11 +441,10 @@ export const HomeScreen = () => {
         </div>
 
         <div style={{
-          display: 'flex',
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
           gap: '10px',
-          overflowX: 'auto',
-          paddingBottom: '4px',
-          scrollbarWidth: 'none'
+          paddingTop: '6px'
         }}>
           {staffList.slice(1).map((st) => {
             const roleTitle = staffRoles[st.id] || 'Kỹ thuật viên';
@@ -453,17 +452,18 @@ export const HomeScreen = () => {
               <div
                 key={st.id}
                 onClick={() => handleStartBooking(services[0], st)}
-                className="warm-glass-card"
+                className="warm-glass-card card-hover-ombre"
                 style={{
-                  minWidth: '120px',
-                  padding: '12px 8px',
+                  padding: '12px 6px',
                   borderRadius: '16px',
                   textAlign: 'center',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
                   cursor: 'pointer',
-                  border: '1px solid rgba(196, 158, 101, 0.18)'
+                  border: '1px solid rgba(240, 174, 164, 0.35)',
+                  minWidth: 0,
+                  width: '100%'
                 }}
               >
                 <div style={{ position: 'relative', marginBottom: '6px' }}>
@@ -500,13 +500,17 @@ export const HomeScreen = () => {
                 </div>
 
                 <div style={{
-                  fontSize: '11.5px',
+                  fontSize: '11px',
                   fontWeight: '800',
                   color: '#3E101B',
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  width: '100%'
+                  lineHeight: '1.25',
+                  minHeight: '28px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  textAlign: 'center',
+                  width: '100%',
+                  wordBreak: 'break-word'
                 }}>
                   {st.name}
                 </div>
@@ -591,11 +595,9 @@ export const HomeScreen = () => {
         {/* Filter Pills */}
         <div style={{
           display: 'flex',
-          gap: '8px',
-          overflowX: 'auto',
-          paddingBottom: '4px',
-          marginBottom: '14px',
-          scrollbarWidth: 'none'
+          gap: '6px',
+          flexWrap: 'wrap',
+          marginBottom: '14px'
         }}>
           {[
             { id: 'all', label: `Tất cả (${approvedReviews.length})` },
@@ -609,14 +611,13 @@ export const HomeScreen = () => {
                 key={f.id}
                 onClick={() => setReviewFilter(f.id)}
                 style={{
-                  padding: '7px 14px',
+                  padding: '6px 12px',
                   borderRadius: '999px',
                   fontSize: '11px',
                   fontWeight: isAct ? '800' : '600',
                   backgroundColor: isAct ? '#5C1929' : '#FFFFFF',
                   color: isAct ? '#FAF6F0' : '#3E101B',
                   border: isAct ? '1px solid #5C1929' : '1px solid rgba(240, 174, 164, 0.4)',
-                  whiteSpace: 'nowrap',
                   boxShadow: isAct ? '0 3px 10px rgba(92, 25, 41, 0.22)' : '0 2px 6px rgba(0,0,0,0.03)',
                   transition: 'all 0.18s ease'
                 }}
