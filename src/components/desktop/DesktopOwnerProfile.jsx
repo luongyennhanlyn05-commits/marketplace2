@@ -210,11 +210,11 @@ export const DesktopOwnerProfile = () => {
             {reviews.map((rev) => (
               <div
                 key={rev.id}
+                className="warm-glass-card card-hover-ombre"
                 style={{
-                  backgroundColor: '#FFFFFF',
                   borderRadius: '16px',
                   padding: '16px',
-                  border: '1px solid rgba(196, 158, 101, 0.2)'
+                  border: '1px solid rgba(240, 174, 164, 0.35)'
                 }}
               >
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>

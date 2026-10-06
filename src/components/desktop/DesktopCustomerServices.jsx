@@ -130,13 +130,13 @@ export const DesktopCustomerServices = () => {
           {filtered.map((s) => (
             <div
               key={s.id}
-              className="warm-glass-card"
+              className="warm-glass-card card-hover-ombre"
               style={{
                 borderRadius: '20px',
                 overflow: 'hidden',
                 display: 'flex',
                 flexDirection: 'column',
-                border: '1px solid rgba(196, 158, 101, 0.22)'
+                border: '1px solid rgba(240, 174, 164, 0.35)'
               }}
             >
               <div style={{ height: '170px', position: 'relative', overflow: 'hidden' }}>

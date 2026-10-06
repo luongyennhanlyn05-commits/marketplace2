@@ -336,11 +336,11 @@ export const VenueDetailModal = () => {
               {selectedVenue.reviews.map((r) => (
                 <div
                   key={r.id}
+                  className="warm-glass-card card-hover-ombre"
                   style={{
-                    backgroundColor: '#FFFFFF',
                     borderRadius: '14px',
                     padding: '14px',
-                    border: '1px solid rgba(98, 32, 47, 0.08)'
+                    border: '1px solid rgba(240, 174, 164, 0.35)'
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>

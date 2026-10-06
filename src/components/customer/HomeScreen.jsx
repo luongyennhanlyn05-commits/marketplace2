@@ -38,8 +38,9 @@ export const HomeScreen = () => {
     unreadCount
   } = useApp();
 
-  const [isReviewsExpanded, setIsReviewsExpanded] = useState(false);
+  const [isReviewsExpanded, setIsReviewsExpanded] = useState(true);
   const [reviewFilter, setReviewFilter] = useState('all');
+  const [selectedReviewId, setSelectedReviewId] = useState('r1');
   const [reportingReview, setReportingReview] = useState(null);
   const [reportReason, setReportReason] = useState('Nội dung thô tục / xúc phạm');
 
@@ -104,6 +105,7 @@ export const HomeScreen = () => {
   const displayedReviews = useMemo(() => {
     if (reviewFilter === '5star') return approvedReviews.filter((r) => r.rating === 5);
     if (reviewFilter === 'images') return approvedReviews.filter((r) => r.images && r.images.length > 0);
+    if (reviewFilter === 'spa') return approvedReviews.filter((r) => r.serviceCategory === 'spa' || (r.serviceName && r.serviceName.toLowerCase().includes('trị liệu')));
     return approvedReviews;
   }, [approvedReviews, reviewFilter]);
 
@@ -528,11 +530,11 @@ export const HomeScreen = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          marginBottom: '10px'
+          marginBottom: '12px'
         }}>
           <div>
             <h2 style={{
-              fontSize: '13px',
+              fontSize: '13.5px',
               fontWeight: '800',
               color: '#3E101B',
               letterSpacing: '0.2px'
@@ -553,196 +555,277 @@ export const HomeScreen = () => {
             color: '#5C1929'
           }}>
             <Star size={11} fill="#C49E65" color="#C49E65" />
-            <span>{shopInfo.rating} / 5.0</span>
-            <span style={{ fontSize: '10px', opacity: 0.7 }}>({shopInfo.reviewCount || 186})</span>
+            <span>{shopInfo.rating || '5.0'} / 5.0</span>
+            <span style={{ fontSize: '10px', opacity: 0.7 }}>({approvedReviews.length || 158} đánh giá)</span>
           </div>
         </div>
 
-        {/* Highlight Review Card */}
-        {approvedReviews.length > 0 && (
-          <div
-            className="warm-glass-card"
-            style={{
-              borderRadius: '18px',
-              padding: '14px',
-              backgroundColor: '#FFFFFF',
-              border: '1px solid rgba(196, 158, 101, 0.22)',
-              marginBottom: '10px'
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '8px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <img
-                  src={approvedReviews[0].avatar}
-                  alt={approvedReviews[0].author}
-                  style={{ width: '32px', height: '32px', borderRadius: '50%', objectFit: 'cover' }}
-                />
-                <div>
-                  <div style={{ fontSize: '12px', fontWeight: '800', color: '#3E101B' }}>
-                    {approvedReviews[0].author}
-                  </div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '4px' }}>
-                    <div style={{ display: 'flex', gap: '1px' }}>
-                      {[1, 2, 3, 4, 5].map((s) => (
-                        <Star key={s} size={10} fill="#C49E65" color="#C49E65" />
-                      ))}
-                    </div>
-                    <span style={{ fontSize: '9.5px', color: 'rgba(62, 16, 27, 0.5)' }}>
-                      • {approvedReviews[0].serviceName}
-                    </span>
-                  </div>
-                </div>
-              </div>
+        {/* Google Maps Review CTA Banner */}
+        <a
+          href={shopInfo.googleMapsReviewUrl || 'https://maps.google.com/?q=86+Pasteur+Ben+Nghe+Quan+1+Ho+Chi+Minh#review'}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="warm-glass-card card-hover-ombre"
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '8px',
+            padding: '11px 16px',
+            borderRadius: '16px',
+            backgroundColor: '#FFFFFF',
+            border: '1px solid rgba(240, 174, 164, 0.45)',
+            color: '#3E101B',
+            fontSize: '11.5px',
+            fontWeight: '700',
+            textDecoration: 'none',
+            marginBottom: '14px',
+            boxShadow: '0 4px 14px -2px rgba(92, 25, 41, 0.05)'
+          }}
+        >
+          <MapPin size={15} color="#15803D" />
+          <span>Xem & Đánh Giá Trên Google Maps {shopInfo.name}</span>
+          <ExternalLink size={12} color="#691F31" />
+        </a>
 
-              <span style={{
-                fontSize: '9px',
-                fontWeight: '700',
-                backgroundColor: '#E8F5E9',
-                color: '#2E7D32',
-                padding: '2px 6px',
-                borderRadius: '4px'
-              }}>
-                ✓ Đã trải nghiệm
-              </span>
-            </div>
-
-            <p style={{
-              fontSize: '11.5px',
-              color: 'rgba(62, 16, 27, 0.85)',
-              lineHeight: '1.45',
-              fontStyle: 'italic',
-              margin: '0 0 8px'
-            }}>
-              "{approvedReviews[0].comment}"
-            </p>
-
-            {/* Quick Google Maps Review Link & View All Trigger */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid rgba(0,0,0,0.05)', paddingTop: '8px' }}>
-              <a
-                href={shopInfo.googleMapsReviewUrl || 'https://maps.google.com/?q=86+Pasteur+Ben+Nghe+Quan+1+Ho+Chi+Minh#review'}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: '4px',
-                  fontSize: '10.5px',
-                  fontWeight: '700',
-                  color: '#2E7D32',
-                  textDecoration: 'none'
-                }}
-              >
-                <MapPin size={12} />
-                <span>Google Maps Review</span>
-                <ExternalLink size={10} />
-              </a>
-
+        {/* Filter Pills */}
+        <div style={{
+          display: 'flex',
+          gap: '8px',
+          overflowX: 'auto',
+          paddingBottom: '4px',
+          marginBottom: '14px',
+          scrollbarWidth: 'none'
+        }}>
+          {[
+            { id: 'all', label: `Tất cả (${approvedReviews.length})` },
+            { id: '5star', label: '5 sao ⭐' },
+            { id: 'images', label: 'Có hình ảnh 📷' },
+            { id: 'spa', label: 'Spa trị liệu' }
+          ].map((f) => {
+            const isAct = reviewFilter === f.id;
+            return (
               <button
-                onClick={() => setIsReviewsExpanded(!isReviewsExpanded)}
+                key={f.id}
+                onClick={() => setReviewFilter(f.id)}
                 style={{
+                  padding: '7px 14px',
+                  borderRadius: '999px',
                   fontSize: '11px',
-                  fontWeight: '700',
-                  color: '#5C1929',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '2px'
+                  fontWeight: isAct ? '800' : '600',
+                  backgroundColor: isAct ? '#5C1929' : '#FFFFFF',
+                  color: isAct ? '#FAF6F0' : '#3E101B',
+                  border: isAct ? '1px solid #5C1929' : '1px solid rgba(240, 174, 164, 0.4)',
+                  whiteSpace: 'nowrap',
+                  boxShadow: isAct ? '0 3px 10px rgba(92, 25, 41, 0.22)' : '0 2px 6px rgba(0,0,0,0.03)',
+                  transition: 'all 0.18s ease'
                 }}
               >
-                <span>{isReviewsExpanded ? 'Thu gọn' : `Xem thêm (${approvedReviews.length})`}</span>
-                <ChevronRight size={13} style={{ transform: isReviewsExpanded ? 'rotate(90deg)' : 'none', transition: 'transform 0.2s' }} />
+                <span>{f.label}</span>
               </button>
-            </div>
-          </div>
-        )}
+            );
+          })}
+        </div>
 
-        {/* Expandable Review List */}
-        {isReviewsExpanded && (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '8px' }} className="animate-fade-up">
-            {/* Filter Pills */}
-            <div style={{ display: 'flex', gap: '6px', marginBottom: '4px' }}>
-              {[
-                { id: 'all', label: `Tất cả (${approvedReviews.length})`, icon: null },
-                { id: '5star', label: '5 sao', icon: Star },
-                { id: 'images', label: 'Có ảnh', icon: Camera }
-              ].map((f) => {
-                const isAct = reviewFilter === f.id;
-                const Icon = f.icon;
-                return (
-                  <button
-                    key={f.id}
-                    onClick={() => setReviewFilter(f.id)}
-                    style={{
-                      padding: '4px 10px',
-                      borderRadius: '999px',
-                      fontSize: '10.5px',
-                      fontWeight: isAct ? '800' : '600',
-                      backgroundColor: isAct ? '#5C1929' : '#FFFFFF',
-                      color: isAct ? '#FAF6F0' : '#3E101B',
-                      border: isAct ? 'none' : '1px solid rgba(196, 158, 101, 0.25)',
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: '4px'
-                    }}
-                  >
-                    {Icon && <Icon size={10} fill={isAct ? '#FAF6F0' : '#C49E65'} color={isAct ? '#FAF6F0' : '#C49E65'} />}
-                    <span>{f.label}</span>
-                  </button>
-                );
-              })}
-            </div>
-
-            {displayedReviews.slice(1).map((rev) => (
+        {/* Review Cards List */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+          {displayedReviews.map((rev) => {
+            const isSelected = selectedReviewId === rev.id;
+            return (
               <div
                 key={rev.id}
-                className="warm-glass-card"
+                onClick={() => setSelectedReviewId(isSelected ? null : rev.id)}
+                className={`warm-glass-card card-hover-ombre ${isSelected ? 'is-active' : ''}`}
                 style={{
-                  borderRadius: '16px',
-                  padding: '12px',
-                  backgroundColor: '#FFFFFF',
-                  border: '1px solid rgba(196, 158, 101, 0.18)'
+                  borderRadius: '20px',
+                  padding: '16px',
+                  border: isSelected ? '1.5px solid #F0AEA4' : '1px solid rgba(240, 174, 164, 0.35)',
+                  cursor: 'pointer'
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '6px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '7px' }}>
+                {/* Header: Avatar, Name, Verified Badge, Stars, Date, Report */}
+                <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '8px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                     <img
                       src={rev.avatar}
                       alt={rev.author}
-                      style={{ width: '28px', height: '28px', borderRadius: '50%', objectFit: 'cover' }}
+                      style={{
+                        width: '38px',
+                        height: '38px',
+                        borderRadius: '50%',
+                        objectFit: 'cover',
+                        border: '1px solid rgba(240, 174, 164, 0.5)'
+                      }}
                     />
                     <div>
-                      <div style={{ fontSize: '11.5px', fontWeight: '800', color: '#3E101B' }}>
-                        {rev.author}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                        <span style={{ fontSize: '13px', fontWeight: '800', color: '#3E101B' }}>
+                          {rev.author}
+                        </span>
+                        {rev.verifiedBooking && (
+                          <span style={{
+                            fontSize: '9.5px',
+                            fontWeight: '700',
+                            backgroundColor: '#E8F5E9',
+                            color: '#2E7D32',
+                            padding: '1px 6px',
+                            borderRadius: '5px',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '2px'
+                          }}>
+                            ✓ Đã dùng dịch vụ
+                          </span>
+                        )}
                       </div>
-                      <div style={{ fontSize: '9.5px', color: 'rgba(62, 16, 27, 0.5)' }}>
-                        {rev.date} • {rev.serviceName}
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginTop: '2px' }}>
+                        <div style={{ display: 'flex', gap: '1px' }}>
+                          {[1, 2, 3, 4, 5].map((s) => (
+                            <Star
+                              key={s}
+                              size={11}
+                              fill={s <= rev.rating ? '#EAB308' : 'none'}
+                              color="#EAB308"
+                            />
+                          ))}
+                        </div>
+                        <span style={{ fontSize: '10px', color: 'rgba(62, 16, 27, 0.55)' }}>
+                          • {rev.date}
+                        </span>
                       </div>
                     </div>
                   </div>
 
                   <button
-                    onClick={() => setReportingReview(rev)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setReportingReview(rev);
+                    }}
                     style={{
                       border: 'none',
                       backgroundColor: 'transparent',
-                      color: 'rgba(62, 16, 27, 0.45)',
+                      color: 'rgba(62, 16, 27, 0.5)',
                       display: 'flex',
                       alignItems: 'center',
-                      gap: '2px',
-                      fontSize: '9.5px'
+                      gap: '3px',
+                      fontSize: '10px',
+                      fontWeight: '600'
                     }}
                   >
-                    <Flag size={10} />
+                    <Flag size={11} />
                     <span>Báo cáo</span>
                   </button>
                 </div>
 
-                <p style={{ fontSize: '11px', color: 'rgba(62, 16, 27, 0.8)', lineHeight: '1.4', margin: 0 }}>
+                {/* Service Name Pill */}
+                {rev.serviceName && (
+                  <div style={{ marginBottom: '8px' }}>
+                    <span style={{
+                      display: 'inline-block',
+                      fontSize: '11px',
+                      fontWeight: '700',
+                      backgroundColor: 'rgba(253, 237, 234, 0.85)',
+                      color: '#5C1929',
+                      padding: '3px 10px',
+                      borderRadius: '8px'
+                    }}>
+                      {rev.serviceName}
+                    </span>
+                  </div>
+                )}
+
+                {/* Comment Text */}
+                <p style={{
+                  fontSize: '12px',
+                  color: 'rgba(62, 16, 27, 0.88)',
+                  lineHeight: '1.5',
+                  margin: '0 0 10px'
+                }}>
                   "{rev.comment}"
                 </p>
+
+                {/* Tags */}
+                {rev.tags && rev.tags.length > 0 && (
+                  <div style={{
+                    display: 'flex',
+                    gap: '6px',
+                    flexWrap: 'wrap',
+                    marginBottom: (rev.images && rev.images.length > 0) || rev.shopReply ? '10px' : 0
+                  }}>
+                    {rev.tags.map((t, idx) => (
+                      <span
+                        key={idx}
+                        style={{
+                          fontSize: '10px',
+                          fontWeight: '600',
+                          backgroundColor: 'rgba(255, 246, 243, 0.95)',
+                          color: 'rgba(92, 25, 41, 0.85)',
+                          padding: '3px 8px',
+                          borderRadius: '6px',
+                          border: '1px solid rgba(240, 174, 164, 0.3)'
+                        }}
+                      >
+                        #{t}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                {/* Images */}
+                {rev.images && rev.images.length > 0 && (
+                  <div style={{ display: 'flex', gap: '8px', marginBottom: rev.shopReply ? '10px' : 0 }}>
+                    {rev.images.map((img, i) => (
+                      <img
+                        key={i}
+                        src={img}
+                        alt="Feedback khách hàng"
+                        style={{
+                          width: '60px',
+                          height: '60px',
+                          borderRadius: '12px',
+                          objectFit: 'cover',
+                          border: '1px solid rgba(240, 174, 164, 0.35)'
+                        }}
+                      />
+                    ))}
+                  </div>
+                )}
+
+                {/* Shop Reply Box */}
+                {rev.shopReply && (
+                  <div style={{
+                    backgroundColor: 'rgba(255, 248, 246, 0.75)',
+                    borderLeft: '3px solid #691F31',
+                    borderRadius: '0 12px 12px 0',
+                    padding: '8px 12px',
+                    fontSize: '11px',
+                    color: '#691F31',
+                    marginTop: '6px'
+                  }}>
+                    <div style={{
+                      fontWeight: '800',
+                      marginBottom: '3px',
+                      display: 'flex',
+                      justifyContent: 'space-between',
+                      alignItems: 'center'
+                    }}>
+                      <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                        <span>💬</span>
+                        <span>Phản hồi từ {shopInfo.name}:</span>
+                      </span>
+                      <span style={{ fontSize: '9.5px', color: 'rgba(62, 16, 27, 0.55)', fontWeight: 'normal' }}>
+                        {rev.shopReply.date}
+                      </span>
+                    </div>
+                    <div style={{ lineHeight: '1.45', color: 'rgba(62, 16, 27, 0.85)' }}>
+                      {rev.shopReply.text}
+                    </div>
+                  </div>
+                )}
               </div>
-            ))}
-          </div>
-        )}
+            );
+          })}
+        </div>
       </section>
 
       {/* 7. Thông Tin Cơ Sở Tiệm B */}

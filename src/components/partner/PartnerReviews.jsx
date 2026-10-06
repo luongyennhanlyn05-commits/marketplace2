@@ -258,16 +258,15 @@ export const PartnerReviews = () => {
             return (
               <div
                 key={rev.id}
-                className="warm-glass-card"
+                className="warm-glass-card card-hover-ombre"
                 style={{
                   borderRadius: '20px',
                   padding: '14px 16px',
-                  backgroundColor: '#FFFFFF',
                   border: isFlagged
                     ? '1.5px solid #D97706'
                     : isHidden
                     ? '1.5px dashed #C62828'
-                    : '1px solid rgba(201, 168, 117, 0.28)',
+                    : '1px solid rgba(240, 174, 164, 0.35)',
                   display: 'flex',
                   flexDirection: 'column',
                   gap: '10px',

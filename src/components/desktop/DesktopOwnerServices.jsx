@@ -301,13 +301,13 @@ export const DesktopOwnerServices = () => {
           {filteredServices.map((svc) => (
             <div
               key={svc.id}
-              className="warm-glass-card"
+              className="warm-glass-card card-hover-ombre"
               style={{
                 borderRadius: '20px',
                 overflow: 'hidden',
                 display: 'flex',
                 flexDirection: 'column',
-                border: '1px solid rgba(196, 158, 101, 0.22)',
+                border: '1px solid rgba(240, 174, 164, 0.35)',
                 boxShadow: '0 4px 18px rgba(92, 25, 41, 0.04)'
               }}
             >

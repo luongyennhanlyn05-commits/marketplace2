@@ -403,29 +403,129 @@ export const DesktopCustomerHome = () => {
         </h2>
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
-          gap: '18px'
+          gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+          gap: '20px'
         }}>
           {reviews.slice(0, 3).map((r) => (
             <div
               key={r.id}
-              className="warm-glass-card"
-              style={{ padding: '18px', borderRadius: '18px' }}
+              className="warm-glass-card card-hover-ombre"
+              style={{
+                padding: '20px',
+                borderRadius: '20px',
+                border: '1px solid rgba(240, 174, 164, 0.35)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '10px'
+              }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
-                <span style={{ fontSize: '13.5px', fontWeight: '800', color: '#3E101B' }}>
-                  {r.author}
-                </span>
-                <span style={{ fontSize: '12px', color: '#C49E65', fontWeight: '800' }}>
-                  {r.rating} ★
-                </span>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                  <img
+                    src={r.avatar}
+                    alt={r.author}
+                    style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover', border: '1px solid rgba(240, 174, 164, 0.4)' }}
+                  />
+                  <div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                      <span style={{ fontSize: '14px', fontWeight: '800', color: '#3E101B' }}>
+                        {r.author}
+                      </span>
+                      {r.verifiedBooking && (
+                        <span style={{
+                          fontSize: '9.5px',
+                          fontWeight: '700',
+                          backgroundColor: '#E8F5E9',
+                          color: '#2E7D32',
+                          padding: '1px 6px',
+                          borderRadius: '4px'
+                        }}>
+                          ✓ Đã dùng dịch vụ
+                        </span>
+                      )}
+                    </div>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '5px', marginTop: '2px' }}>
+                      <div style={{ display: 'flex', gap: '1px' }}>
+                        {[1, 2, 3, 4, 5].map((s) => (
+                          <span key={s} style={{ color: s <= r.rating ? '#EAB308' : '#D1D5DB', fontSize: '11px' }}>★</span>
+                        ))}
+                      </div>
+                      <span style={{ fontSize: '10.5px', color: 'rgba(62, 16, 27, 0.55)' }}>• {r.date}</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div style={{ fontSize: '11px', color: '#5C1929', fontWeight: '600', marginBottom: '6px' }}>
-                {r.serviceName}
-              </div>
-              <p style={{ fontSize: '12.5px', color: 'rgba(62, 16, 27, 0.75)', lineHeight: 1.45, margin: 0 }}>
+
+              {r.serviceName && (
+                <div>
+                  <span style={{
+                    fontSize: '11px',
+                    fontWeight: '700',
+                    backgroundColor: 'rgba(253, 237, 234, 0.85)',
+                    color: '#5C1929',
+                    padding: '3px 10px',
+                    borderRadius: '8px',
+                    display: 'inline-block'
+                  }}>
+                    {r.serviceName}
+                  </span>
+                </div>
+              )}
+
+              <p style={{ fontSize: '12.5px', color: 'rgba(62, 16, 27, 0.85)', lineHeight: 1.5, margin: 0, flex: 1 }}>
                 "{r.comment}"
               </p>
+
+              {r.tags && r.tags.length > 0 && (
+                <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap' }}>
+                  {r.tags.map((t, idx) => (
+                    <span
+                      key={idx}
+                      style={{
+                        fontSize: '10px',
+                        fontWeight: '600',
+                        backgroundColor: 'rgba(255, 246, 243, 0.95)',
+                        color: 'rgba(92, 25, 41, 0.85)',
+                        padding: '3px 8px',
+                        borderRadius: '6px',
+                        border: '1px solid rgba(240, 174, 164, 0.3)'
+                      }}
+                    >
+                      #{t}
+                    </span>
+                  ))}
+                </div>
+              )}
+
+              {r.images && r.images.length > 0 && (
+                <div style={{ display: 'flex', gap: '8px' }}>
+                  {r.images.map((img, i) => (
+                    <img
+                      key={i}
+                      src={img}
+                      alt="Feedback"
+                      style={{ width: '60px', height: '60px', borderRadius: '10px', objectFit: 'cover' }}
+                    />
+                  ))}
+                </div>
+              )}
+
+              {r.shopReply && (
+                <div style={{
+                  backgroundColor: 'rgba(255, 248, 246, 0.75)',
+                  borderLeft: '3px solid #691F31',
+                  borderRadius: '0 10px 10px 0',
+                  padding: '8px 12px',
+                  fontSize: '11px',
+                  color: '#691F31'
+                }}>
+                  <div style={{ fontWeight: '800', marginBottom: '2px', display: 'flex', justifyContent: 'space-between' }}>
+                    <span>💬 Phản hồi từ Tiệm B:</span>
+                    <span style={{ fontSize: '9.5px', color: 'rgba(62, 16, 27, 0.55)', fontWeight: 'normal' }}>{r.shopReply.date}</span>
+                  </div>
+                  <div style={{ lineHeight: 1.45, color: 'rgba(62, 16, 27, 0.85)' }}>{r.shopReply.text}</div>
+                </div>
+              )}
             </div>
           ))}
         </div>
