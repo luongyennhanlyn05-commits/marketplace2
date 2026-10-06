@@ -166,7 +166,8 @@ export const MobileFrame = ({ children }) => {
           flexDirection: 'column',
           position: 'relative',
           overflow: 'hidden',
-          backgroundColor: '#F8F2EC'
+          backgroundColor: '#F8F2EC',
+          transform: 'translateZ(0)'
         }}>
           {/* Animated 3D Depth Canvas Layer */}
           <div className="ambient-3d-canvas">

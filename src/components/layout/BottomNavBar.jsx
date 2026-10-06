@@ -35,11 +35,13 @@ export const BottomNavBar = () => {
 
     return (
       <div style={{
-        position: 'absolute',
+        position: 'fixed',
         bottom: 'max(14px, env(safe-area-inset-bottom, 14px))',
-        left: '12px',
-        right: '12px',
-        zIndex: 800,
+        left: '50%',
+        transform: 'translateX(-50%)',
+        width: 'calc(100% - 24px)',
+        maxWidth: '430px',
+        zIndex: 900,
         pointerEvents: 'none'
       }}>
         <nav
@@ -111,11 +113,13 @@ export const BottomNavBar = () => {
 
   return (
     <div style={{
-      position: 'absolute',
+      position: 'fixed',
       bottom: 'max(14px, env(safe-area-inset-bottom, 14px))',
-      left: '12px',
-      right: '12px',
-      zIndex: 800,
+      left: '50%',
+      transform: 'translateX(-50%)',
+      width: 'calc(100% - 24px)',
+      maxWidth: '430px',
+      zIndex: 900,
       pointerEvents: 'none'
     }}>
       <nav

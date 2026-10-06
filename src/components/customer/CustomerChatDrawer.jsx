@@ -134,10 +134,10 @@ export const CustomerChatDrawer = () => {
       {!isOpen && (
         <div
           style={{
-            position: 'absolute',
-            bottom: '94px',
-            right: '18px',
-            zIndex: 930
+            position: 'fixed',
+            bottom: '88px',
+            right: 'max(16px, calc(50% - 200px))',
+            zIndex: 920
           }}
           className="animate-fade-up"
         >
