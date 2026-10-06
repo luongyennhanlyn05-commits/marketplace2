@@ -1,0 +1,298 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap');
+
+:root {
+  /* ================= WARM LUXURY PALETTE ================= */
+  --bg-app: #FAF6F0;
+  --color-cream: #FAF6F0;
+  --color-surface: #FFFFFF;
+
+  /* Accent Blush & Champagne */
+  --color-blush: #F5DDD7;
+  --color-blush-light: #FBF0EC;
+  --color-blush-subtle: rgba(245, 221, 215, 0.4);
+
+  /* Primary Deep Burgundy */
+  --color-burgundy: #5C1929;
+  --color-burgundy-hover: #732235;
+  --color-burgundy-light: #F4E7E9;
+
+  /* Metallic Champagne Gold */
+  --color-champagne: #C49E65;
+  --color-champagne-light: #E0C89F;
+  --border-champagne-subtle: rgba(196, 158, 101, 0.2);
+  --border-champagne-gold: rgba(196, 158, 101, 0.4);
+
+  /* Typography Colors */
+  --text-main: #3E101B;
+  --text-primary: #3E101B;
+  --text-secondary: rgba(62, 16, 27, 0.72);
+  --text-muted: rgba(62, 16, 27, 0.45);
+  --text-on-dark: #FAF6F0;
+
+  /* Typography Stack: Be Vietnam Pro (Gold standard for Vietnamese UI) + Playfair Display (Luxury Editorial) */
+  --font-body: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-display: 'Outfit', 'Be Vietnam Pro', sans-serif;
+
+  /* Refined Glassmorphism Card System */
+  --bg-glass-card: rgba(255, 255, 255, 0.88);
+  --bg-glass-card-hover: rgba(255, 255, 255, 0.98);
+  --border-glass: rgba(196, 158, 101, 0.18);
+  --border-glass-subtle: rgba(0, 0, 0, 0.04);
+  --shadow-glass: 0 4px 20px -2px rgba(92, 25, 41, 0.05), 0 1px 3px rgba(0, 0, 0, 0.02);
+  --shadow-glass-hover: 0 10px 28px -4px rgba(92, 25, 41, 0.1), 0 2px 6px rgba(0, 0, 0, 0.03);
+  --shadow-glass-float: 0 16px 36px -4px rgba(92, 25, 41, 0.12);
+
+  /* Floating Dock */
+  --bg-dock: rgba(255, 255, 255, 0.78);
+  --border-dock: rgba(255, 255, 255, 0.85);
+  --shadow-dock: 0 12px 36px -4px rgba(92, 25, 41, 0.14), 0 0 1px 1px rgba(255, 255, 255, 0.9);
+
+  /* CTA Button */
+  --shadow-cta: 0 6px 20px -2px rgba(92, 25, 41, 0.28);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 50% 20%, #200B12 0%, #0D0407 100%);
+  font-family: var(--font-body);
+  color: var(--text-main);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  letter-spacing: -0.006em;
+  line-height: 1.48;
+}
+
+/* Button & Interactive Elements */
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  outline: none;
+  transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              box-shadow 0.18s ease, 
+              background-color 0.18s ease,
+              opacity 0.18s ease;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+input, textarea, select {
+  font-family: inherit;
+  color: var(--text-main);
+  outline: none;
+  border: 1px solid var(--border-glass);
+  background: rgba(255, 255, 255, 0.95);
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--color-burgundy);
+  box-shadow: 0 0 0 3px rgba(92, 25, 41, 0.1);
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
+
+/* ================= MODERN CLEAN GLASSMORPHISM ================= */
+.warm-glass-card, .component-card, .k-glass-card {
+  background: var(--bg-glass-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-glass);
+  border-radius: 20px;
+  box-shadow: var(--shadow-glass);
+  transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), 
+              box-shadow 0.22s ease,
+              background 0.22s ease,
+              border-color 0.22s ease;
+}
+
+.warm-glass-card:hover, .component-card:hover, .k-glass-card:hover, .hover-blush:hover {
+  transform: translateY(-2px);
+  background: var(--bg-glass-card-hover);
+  border-color: rgba(196, 158, 101, 0.35);
+  box-shadow: var(--shadow-glass-hover);
+}
+
+/* Primary CTA Button */
+.btn-burgundy-cta, .btn-velvet-cta {
+  background: linear-gradient(135deg, #5C1929 0%, #46111D 100%);
+  color: #FAF6F0;
+  height: 46px;
+  border-radius: 14px;
+  box-shadow: var(--shadow-cta);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.1px;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
+}
+
+.btn-burgundy-cta:hover, .btn-velvet-cta:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+  box-shadow: 0 8px 24px -2px rgba(92, 25, 41, 0.36);
+}
+
+/* Crystal Floating Dock */
+.crystal-dock {
+  background: rgba(255, 255, 255, 0.82) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.9) !important;
+  border-radius: 999px;
+  box-shadow: 0 10px 30px -4px rgba(92, 25, 41, 0.1), 0 0 1px 1px rgba(255, 255, 255, 0.8) !important;
+}
+
+/* ================= AMBIENT 3D MOTION BACKGROUND ================= */
+.ambient-3d-canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(55px);
+  opacity: 0.6;
+  mix-blend-mode: multiply;
+  will-change: transform;
+}
+
+/* Orb 1: Soft Blush Pink */
+.ambient-orb-1 {
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, #F1D0C9 0%, #F6E1DB 65%, transparent 100%);
+  top: -50px;
+  right: -50px;
+  animation: orbFloat3D1 18s ease-in-out infinite alternate;
+}
+
+/* Orb 2: Warm Peach Rose */
+.ambient-orb-2 {
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, #E9B8B5 0%, #F5EBE1 60%, transparent 100%);
+  top: 38%;
+  left: -90px;
+  animation: orbFloat3D2 22s ease-in-out infinite alternate;
+}
+
+/* Orb 3: Champagne Gold Glow */
+.ambient-orb-3 {
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, #D9BD8C 0%, #F8F2EC 70%, transparent 100%);
+  bottom: 90px;
+  right: -60px;
+  animation: orbFloat3D3 20s ease-in-out infinite alternate;
+}
+
+@keyframes orbFloat3D1 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(-40px, 70px, 30px) scale(1.15) rotate(90deg);
+  }
+  100% {
+    transform: translate3d(30px, 130px, -20px) scale(0.95) rotate(180deg);
+  }
+}
+
+@keyframes orbFloat3D2 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1.05);
+  }
+  50% {
+    transform: translate3d(70px, -45px, 40px) scale(0.9);
+  }
+  100% {
+    transform: translate3d(25px, 85px, -15px) scale(1.12);
+  }
+}
+
+@keyframes orbFloat3D3 {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.95);
+  }
+  50% {
+    transform: translate3d(-55px, -75px, 50px) scale(1.1);
+  }
+  100% {
+    transform: translate3d(25px, 35px, 0px) scale(1.03);
+  }
+}
+
+/* Outer Desktop Ambient Aura */
+.outer-ambient-glow {
+  position: absolute;
+  width: 620px;
+  height: 620px;
+  background: radial-gradient(circle, rgba(122, 38, 57, 0.28) 0%, rgba(201, 168, 117, 0.12) 40%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(85px);
+  pointer-events: none;
+  animation: outerOrb3D 16s ease-in-out infinite alternate;
+}
+
+@keyframes outerOrb3D {
+  0% { transform: translate3d(-35px, -20px, 0) scale(1); }
+  50% { transform: translate3d(45px, 35px, 0) scale(1.12); }
+  100% { transform: translate3d(-25px, 55px, 0) scale(0.95); }
+}
+
+/* Micro Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-up {
+  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Slide Up Drawer */
+@keyframes slideUpDrawer {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.animate-slide-up {
+  animation: slideUpDrawer 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Custom Minimal Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(105, 31, 49, 0.15);
+  border-radius: 999px;
+}
