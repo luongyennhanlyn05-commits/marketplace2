@@ -318,12 +318,12 @@ export const HomeScreen = () => {
       </section>
 
       {/* 4. Dịch Vụ Nổi Bật */}
-      <section style={{ padding: '0 20px 20px' }}>
+      <section style={{ padding: '0 20px 20px', overflow: 'visible' }}>
         <div style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          marginBottom: '10px'
+          marginBottom: '14px'
         }}>
           <h2 style={{
             fontSize: '13px',
@@ -354,7 +354,9 @@ export const HomeScreen = () => {
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(3, 1fr)',
-          gap: '10px'
+          gap: '10px',
+          paddingTop: '10px',
+          overflow: 'visible'
         }}>
           {featuredServices.map((item) => {
             const IconComponent = item.icon;
@@ -362,16 +364,19 @@ export const HomeScreen = () => {
               <div
                 key={item.id}
                 onClick={() => handleStartBooking(item.matchedService)}
-                className="warm-glass-card"
+                className="warm-glass-card card-hover-ombre"
                 style={{
-                  padding: '12px 8px',
+                  padding: '12px 6px',
                   borderRadius: '16px',
                   textAlign: 'center',
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
                   cursor: 'pointer',
-                  border: '1px solid rgba(196, 158, 101, 0.18)'
+                  border: '1px solid rgba(240, 174, 164, 0.35)',
+                  minWidth: 0,
+                  width: '100%',
+                  overflow: 'visible'
                 }}
               >
                 <div style={{
@@ -420,12 +425,12 @@ export const HomeScreen = () => {
       </section>
 
       {/* 5. Chuyên Viên Đang Trực */}
-      <section style={{ padding: '0 20px 20px' }}>
+      <section style={{ padding: '0 20px 20px', overflow: 'visible' }}>
         <div style={{
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'space-between',
-          marginBottom: '10px'
+          marginBottom: '14px'
         }}>
           <h2 style={{
             fontSize: '13px',
@@ -444,7 +449,9 @@ export const HomeScreen = () => {
           display: 'grid',
           gridTemplateColumns: 'repeat(3, 1fr)',
           gap: '10px',
-          paddingTop: '6px'
+          paddingTop: '10px',
+          paddingBottom: '4px',
+          overflow: 'visible'
         }}>
           {staffList.slice(1).map((st) => {
             const roleTitle = staffRoles[st.id] || 'Kỹ thuật viên';
@@ -463,7 +470,8 @@ export const HomeScreen = () => {
                   cursor: 'pointer',
                   border: '1px solid rgba(240, 174, 164, 0.35)',
                   minWidth: 0,
-                  width: '100%'
+                  width: '100%',
+                  overflow: 'visible'
                 }}
               >
                 <div style={{ position: 'relative', marginBottom: '6px' }}>
